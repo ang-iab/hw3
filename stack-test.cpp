@@ -14,7 +14,7 @@ int main()
     cout << "The top element of the stack is: " << myStack.top() << endl;
     cout << "The entire stack: ";
 
-    stackSize = myStack.size()
+    size_t stackSize = myStack.size();
     cout << "Size: " << stackSize << endl;
 
     for (size_t i = 0; i < stackSize; i++)
