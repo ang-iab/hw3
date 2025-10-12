@@ -2,6 +2,7 @@
 #define HEAP_H
 #include <functional>
 #include <stdexcept>
+#include <vector>
 
 template <typename T, typename PComparator = std::less<T> >
 class Heap
@@ -61,10 +62,10 @@ public:
 
 private:
   /// Add whatever helper functions and data members you need below
-
-
-
-
+  PComparator comp_;
+  std::vector<T, comp_> data_;
+  std::size_t size_;
+  int m_;
 };
 
 // Add implementation of member functions here
@@ -81,14 +82,11 @@ T const & Heap<T,PComparator>::top() const
     // ================================
     // throw the appropriate exception
     // ================================
-
-
+    throw std::out_of_range("Empty Heap")
   }
   // If we get here we know the heap has at least 1 item
   // Add code to return the top element
-
-
-
+  return data_[0];
 }
 
 
@@ -101,12 +99,42 @@ void Heap<T,PComparator>::pop()
     // ================================
     // throw the appropriate exception
     // ================================
-
-
+    throw std::out_of_range("Empty Heap");
   }
 
+  std::size_t idx = 0;
 
+  // swap root with last leaf
+  T& temp = data_[0];
+  data_[0] = data_[size_ - 1];
+  data_[size_ - 1] = temp;
 
+  // pop the last (originally the first) element
+  data_.pop_back(); 
+  --size_;
+
+  while (true)
+    {
+      std::size_t firstC = idx * m_ + 1;
+      std::size_t bestC = idx;
+
+      // loop through the rest m_ - 1 children
+      for (int j = 1; j < m_; ++j)
+      {
+        std::size_t currentC = firstC + j;
+        if (nextC > size_) break;
+        if (comp_(currentC, bestC)) bestC = currentC;
+      }
+      
+      if (comp_(data_[bestC], data_[idx]))
+      {
+          T& temp = data[idx];
+          data_[idx] = data_[bestC];
+          data_[bestC] = temp;
+          idx = bestC;
+      }
+      else break;
+  }
 }
 
 
