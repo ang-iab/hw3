@@ -9,7 +9,7 @@ all: llrec-test
 #-----------------------------------------------------
 
 llrec-test: llrec-test.o llrec.o
-	$(CXX) $(CXXFLAGS) -o $@ -c $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 llrec-test.o: llrec-test.cpp llrec.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
