@@ -18,7 +18,7 @@ llrec.o: llrec.cpp llrec.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 stack-test: stack-test.o stack.o
-	$(CXX) $(CXXFLAGS) -o $@ -c $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 stack-test.o: stack-test.cpp stack.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
