@@ -2,7 +2,7 @@ CXX := g++
 CXXFLAGS := -g -Wall --std=c++11
 VALGRIND := valgrind --tool=memcheck --leak-check=yes
 
-all: llrec-test stack-test
+all: llrec-test stack-test heap-test
 
 #-----------------------------------------------------
 # ADD target(s) to build your llrec-test executable
@@ -24,6 +24,15 @@ stack-test.o: stack-test.cpp stack.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 stack.o: stack.cpp stack.h
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+heap-test: heap-test.o heap.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+	
+heap-test.o: heap-test.cpp heap.h
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+heap.o: heap.cpp heap.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
