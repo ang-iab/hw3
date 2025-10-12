@@ -19,12 +19,12 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
 
     if (oldHead->val <= pivot) // smaller
     {
-        smaller = head;
+        smaller = oldHead;
         llpivot(head, smaller->next, larger, pivot);
     }
     else // larger
     {
-        larger = head;
+        larger = oldHead;
         llpivot(head, smaller, larger->next, pivot);
     }
 }
