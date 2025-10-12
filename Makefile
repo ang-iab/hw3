@@ -17,22 +17,16 @@ llrec-test.o: llrec-test.cpp llrec.h
 llrec.o: llrec.cpp llrec.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-stack-test: stack-test.o stack.o
+stack-test: stack-test.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 stack-test.o: stack-test.cpp stack.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-stack.o: stack.cpp stack.h
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-heap-test: heap-test.o heap.o
+heap-test: heap-test.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 	
 heap-test.o: heap-test.cpp heap.h
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-heap.o: heap.cpp heap.h
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
