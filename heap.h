@@ -63,7 +63,7 @@ public:
 private:
   /// Add whatever helper functions and data members you need below
   PComparator comp_;
-  std::vector<T, comp_> data_;
+  std::vector<T> data_;
   std::size_t size_;
   int m_;
 };
@@ -82,7 +82,7 @@ T const & Heap<T,PComparator>::top() const
     // ================================
     // throw the appropriate exception
     // ================================
-    throw std::out_of_range("Empty Heap")
+    throw std::out_of_range("Empty Heap");
   }
   // If we get here we know the heap has at least 1 item
   // Add code to return the top element
@@ -122,13 +122,13 @@ void Heap<T,PComparator>::pop()
       for (int j = 1; j < m_; ++j)
       {
         std::size_t currentC = firstC + j;
-        if (nextC > size_) break;
+        if (currentC > size_) break;
         if (comp_(currentC, bestC)) bestC = currentC;
       }
       
       if (comp_(data_[bestC], data_[idx]))
       {
-          T& temp = data[idx];
+          T& temp = data_[idx];
           data_[idx] = data_[bestC];
           data_[bestC] = temp;
           idx = bestC;

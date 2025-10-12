@@ -1,7 +1,7 @@
 #include "heap.h"
 
-template <typename T, typename PComparator = std::less<T>>
-Heap<T, PComparator>::Heap(int m=2, PComparator c = PComparator())
+template <typename T, typename PComparator>
+Heap<T, PComparator>::Heap(int m, PComparator c)
 {
     m_ = m;
     comp_ = c;
@@ -35,13 +35,13 @@ void Heap<T, PComparator>::push(const T& item)
 }
 
 template <typename T, typename PComparator>
-bool Heap<T, PComparator>::empty()
+bool Heap<T, PComparator>::empty() const
 {
     return size_ > 0;
 }
 
 template <typename T, typename PComparator>
-size_t Heap<T, PComparator>::size()
+size_t Heap<T, PComparator>::size() const
 {
     return size_;
 }
