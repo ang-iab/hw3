@@ -3,6 +3,7 @@
 #include <functional>
 #include <stdexcept>
 #include <vector>
+#include "./logicsim/event.h"
 
 template <typename T, typename PComparator = std::less<T> >
 class Heap
@@ -105,7 +106,7 @@ void Heap<T,PComparator>::pop()
   std::size_t n = data_.size();
 
   // swap root with last leaf
-  T& temp = data_[0];
+  T temp = data_[0];
   data_[0] = data_[n - 1];
   data_[n - 1] = temp;
 
@@ -114,30 +115,30 @@ void Heap<T,PComparator>::pop()
   --n;
 
   while (true)
-    {
-      std::size_t firstC = idx * m_ + 1;
-      std::size_t bestC = firstC;
+  {
+    std::size_t firstC = idx * m_ + 1;
 
-      // loop through the rest m_ - 1 children
-      for (int j = 1; j < m_; ++j)
-      {
-        std::size_t currentC = firstC + j;
-        if (currentC >= n) break;
-        if (comp_(data_[currentC], data_[bestC])) bestC = currentC;
-      }
-      
-      if (comp_(data_[bestC], data_[idx]))
-      {
-          T& temp = data_[idx];
-          data_[idx] = data_[bestC];
-          data_[bestC] = temp;
-          idx = bestC;
-      }
-      else break;
+    if (firstC >= n) break;
+
+    std::size_t bestC = firstC;
+
+    // loop through the rest m_ - 1 children
+    for (int j = 1; j < m_; ++j)
+    {
+      std::size_t currentC = firstC + j;
+      if (currentC >= n) break;
+      if (comp_(data_[currentC], data_[bestC])) bestC = currentC;
+    }
+    
+    if (comp_(data_[bestC], data_[idx]))
+    {
+        T temp = data_[idx];
+        data_[idx] = data_[bestC];
+        data_[bestC] = temp;
+        idx = bestC;
+    }
+    else break;
   }
 }
 
-
-
 #endif
-

@@ -26,7 +26,7 @@ void Heap<T, PComparator>::push(const T& item)
         if (!comp_(data_[idx], data_[parent])) break;
 
         // swap the current node with the parent node
-        T& temp = data_[parent];
+        T temp = data_[parent];
         data_[parent] = data_[idx];
         data_[idx] = temp;
         idx = parent;
@@ -46,3 +46,4 @@ size_t Heap<T, PComparator>::size() const
 }
 
 template class Heap<int>; //remember to delete
+template class Heap<Event*, EventLess>;

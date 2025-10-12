@@ -5,8 +5,8 @@ OBJS=wire.o gate.o circuit.o logicsim.o
 
 all: logicsim
 
-logicsim: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ $(OBJS)
+logicsim: $(OBJS) ../heap.o
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ $^
 
 logicsim.o: logicsim.cpp wire.h gate.h circuit.h 
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c logicsim.cpp
@@ -16,6 +16,8 @@ gate.o: gate.cpp wire.h
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c gate.cpp
 circuit.o: circuit.cpp wire.h gate.h event.h
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c circuit.cpp
+../heap.o: ../heap.cpp ../heap.h event.h
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c $<
 
 clean:
 	rm -f *.o logicsim
