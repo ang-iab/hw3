@@ -64,7 +64,6 @@ private:
   /// Add whatever helper functions and data members you need below
   PComparator comp_;
   std::vector<T> data_;
-  std::size_t size_;
   int m_;
 };
 
@@ -103,27 +102,28 @@ void Heap<T,PComparator>::pop()
   }
 
   std::size_t idx = 0;
+  std::size_t n = data_.size();
 
   // swap root with last leaf
   T& temp = data_[0];
-  data_[0] = data_[size_ - 1];
-  data_[size_ - 1] = temp;
+  data_[0] = data_[n - 1];
+  data_[n - 1] = temp;
 
   // pop the last (originally the first) element
   data_.pop_back(); 
-  --size_;
+  --n;
 
   while (true)
     {
       std::size_t firstC = idx * m_ + 1;
-      std::size_t bestC = idx;
+      std::size_t bestC = firstC;
 
       // loop through the rest m_ - 1 children
       for (int j = 1; j < m_; ++j)
       {
         std::size_t currentC = firstC + j;
-        if (currentC > size_) break;
-        if (comp_(currentC, bestC)) bestC = currentC;
+        if (currentC >= n) break;
+        if (comp_(data_[currentC], data_[bestC])) bestC = currentC;
       }
       
       if (comp_(data_[bestC], data_[idx]))

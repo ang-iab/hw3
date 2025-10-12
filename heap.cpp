@@ -17,13 +17,13 @@ template <typename T, typename PComparator>
 void Heap<T, PComparator>::push(const T& item)
 {
     data_.push_back(item);
-    std::size_t idx = size_ - 1;
+    std::size_t idx = data_.size() - 1;
     
     while (idx != 0)
     {
         std::size_t parent = (idx - 1) / m_;
 
-        if (comp_(data_[parent], data_[idx])) break;
+        if (!comp_(data_[idx], data_[parent])) break;
 
         // swap the current node with the parent node
         T& temp = data_[parent];
@@ -31,17 +31,18 @@ void Heap<T, PComparator>::push(const T& item)
         data_[idx] = temp;
         idx = parent;
     }
-    ++size_;
 }
 
 template <typename T, typename PComparator>
 bool Heap<T, PComparator>::empty() const
 {
-    return size_ > 0;
+    return data_.size() == 0;
 }
 
 template <typename T, typename PComparator>
 size_t Heap<T, PComparator>::size() const
 {
-    return size_;
+    return data_.size();
 }
+
+template class Heap<int>; //remember to delete
